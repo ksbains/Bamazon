@@ -1,0 +1,23 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "This is a store front that will use MySql to store items to sell.  ",
+  "main": "bamazon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksbains/Bamazon.git"
+  },
+  "author": "Karanbir Bains",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ksbains/Bamazon/issues"
+  },
+  "homepage": "https://github.com/ksbains/Bamazon#readme",
+  "dependencies": {
+    "inquirer": "^3.3.0",
+    "mysql": "^2.15.0"
+  }
+}
