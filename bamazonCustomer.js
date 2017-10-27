@@ -65,11 +65,33 @@ function buy(id, quantity){
         db.updateProduct(res[0].product_name, res[0].department_name, res[0].price, stock);
         var total = res[0].price * quantity;
         console.log("Thank you for visiting Bamazon! your total is: " + total);
+        displayAll1();
       }else{
         console.log("Insufficient quantity! sorry that item does not have enough in stock");
       }
     }
   });
+}
+
+function displayAll1() {
+  //need to diplay everything in the Database here.
+  console.log("inside of displayAll")
+  console.log(db.connectedState); 
+  if (db.connectedState) {
+    db.connection.query("SELECT * FROM `products`", function(err, res) {
+      if (err){
+        console.log(res);
+        throw err;
+      }else{
+        console.log("id product_name department_name price stock_quantity");
+        for(var i = 0; i< res.length; i++){
+          console.log(res[i].id,res[i].product_name,res[i].department_name,res[i].price,res[i].stock_quantity);
+        }
+      } 
+    });
+  }else{
+    console.log("You have to be connected to the db in order to do this.");
+  }
 }
 
 function displayAll(cb1, cb2) {
