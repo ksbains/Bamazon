@@ -4,7 +4,6 @@ var db = {
   connectedState: false,
   connection: null,
   createConnection: function() {
-    console.log('create connection');
     this.connection = mysql.createConnection({
       host: "localhost",
       port: 3306,
@@ -20,20 +19,16 @@ var db = {
 
   connect: function(cb, cb1, cb2) {
     var self = this;
-    console.log('connecting...');
     this.connection.connect(function(err) {
-      console.log('connected?');
       if (err) console.log(err);
-      console.log("connected as id " + self.connection.threadId);
       self.connectedState = true;
       cb(cb1,cb2);
     });
   },
 
-  disconnect: function(cb) {
+  disconnect: function() {
     this.connectedState = false;
     this.connection.end();
-    cb();
   }
 };
 

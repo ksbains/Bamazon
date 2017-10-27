@@ -30,7 +30,6 @@ function prompt (cb){
   .then(function(inqRes) {
     // If the inquirerResponse confirms, we displays the inquirerResponse's username and pokemon from the answers.
     if (inqRes.confirmId && inqRes.confirmQuantity) {
-      console.log("in the then part of the promt");
       //if the id is in the table and there is enough quanitiy then deduct it from the SQL DB and present the customer with the ssale. 
       cb(inqRes.id, inqRes.quantity);
     }
@@ -74,9 +73,6 @@ function buy(id, quantity){
 }
 
 function displayAll1() {
-  //need to diplay everything in the Database here.
-  console.log("inside of displayAll")
-  console.log(db.connectedState); 
   if (db.connectedState) {
     db.connection.query("SELECT * FROM `products`", function(err, res) {
       if (err){
@@ -89,6 +85,7 @@ function displayAll1() {
         }
       } 
     });
+    db.disconnect();
   }else{
     console.log("You have to be connected to the db in order to do this.");
   }
@@ -96,15 +93,13 @@ function displayAll1() {
 
 function displayAll(cb1, cb2) {
   //need to diplay everything in the Database here.
-  console.log("inside of displayAll")
-  console.log(db.connectedState); 
   if (db.connectedState) {
     db.connection.query("SELECT * FROM `products`", function(err, res) {
       if (err){
         console.log(res);
         throw err;
       }else{
-        console.log("id product_name department_name price stock_quantity");
+        console.log("\n id product_name department_name price stock_quantity \n");
         for(var i = 0; i< res.length; i++){
           console.log(res[i].id,res[i].product_name,res[i].department_name,res[i].price,res[i].stock_quantity);
         }
@@ -117,7 +112,6 @@ function displayAll(cb1, cb2) {
 }
 
 function main(){
-  console.log("the value before the connect is: " + db.connectedState);
   db.createConnection();
   db.connect(displayAll, prompt, buy);
 }
