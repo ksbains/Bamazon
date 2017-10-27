@@ -18,7 +18,7 @@ var db = {
     })
   },
 
-  connect: function(cb) {
+  connect: function(cb, cb1, cb2) {
     var self = this;
     console.log('connecting...');
     this.connection.connect(function(err) {
@@ -26,14 +26,14 @@ var db = {
       if (err) console.log(err);
       console.log("connected as id " + self.connection.threadId);
       self.connectedState = true;
-      cb();
+      cb(cb1,cb2);
     });
   },
 
-  disconnect: function() {
+  disconnect: function(cb) {
     this.connectedState = false;
     this.connection.end();
-    //cb();
+    cb();
   }
 };
 
@@ -58,29 +58,27 @@ db.createProduct = function(name, department, price, quantity) {
   console.log(query.sql);
 }
 db.updateProduct = function(name, department, price, quantity) {
-  console.log("Updating all Rocky Road quantities...\n");
   var query = this.connection.query(
     "UPDATE products SET ? WHERE ?",
     [
       {
         department_name: department,
         price: price,
-        stock_quantity: 100
+        stock_quantity: quantity
       },
       {
         product_name: name
       }
     ],
     function(err, res) {
+      if(err){
+        console.log(err);
+        throw err;
+      }else{
       console.log(res.affectedRows + " products updated!\n");
-      // Call deleteProduct AFTER the UPDATE completes
-      readProducts();
-      //why are we calling delete? is it because set makes a new product?
+      }
     }
   );
-
-  // logs the actual query being run
-  console.log(query.sql);
 }
 
 db.deleteProduct = function(name) {

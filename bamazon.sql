@@ -15,3 +15,6 @@ INSERT INTO `products` (product_name,department_name, price, stock_quantity)
 VALUES ("basektball", "sports", 18.99, 100),("Jordans", "sports", 120.99, 80),("Lenovo T470s", "electronics", 1127.99, 100),
 ("Sony XBR65X750D 4K TV", "electronics", 1298.00, 65),("Playstation 4", "electronics", 299.99, 75), ("ramen", "food", 22.64, 1000),
 ("Regency Natural Ultra Fine 100% Cotton Cheesecloth 9 sq.ft", "food", 3.99, 3000), ("football", "sports", 15.99, 100);
+-- SELECT `stock_quantity` FROM `products` WHERE `id` = '1';
+
+-- SELECT * FROM `products`;
